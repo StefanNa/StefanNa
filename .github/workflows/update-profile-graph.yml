@@ -2,8 +2,11 @@ name: Update Purple Contribution Graph
 
 on:
   schedule:
-    - cron: '17 2 * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
+  repository_dispatch:
+    types:
+      - workout-graph-update
 
 permissions:
   contents: write
@@ -14,21 +17,57 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Decide whether to run now
+        id: schedule_gate
+        env:
+          PROFILE_TZ: ${{ vars.PROFILE_TZ }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          tz="${PROFILE_TZ:-UTC}"
+
+          if [ "${EVENT_NAME}" != "schedule" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            echo "reason=non-schedule event (${EVENT_NAME})" >> "$GITHUB_OUTPUT"
+            echo "tz=${tz}" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          local_hour="$(TZ="${tz}" date +%H)"
+          if [ "${local_hour}" = "08" ] || [ "${local_hour}" = "20" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            echo "reason=local hour ${local_hour} in ${tz}" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            echo "reason=local hour ${local_hour} in ${tz}" >> "$GITHUB_OUTPUT"
+          fi
+          echo "tz=${tz}" >> "$GITHUB_OUTPUT"
+
+      - name: Skip outside configured local hours
+        if: ${{ steps.schedule_gate.outputs.should_run != 'true' }}
+        run: |
+          echo "Skipping graph update: ${{ steps.schedule_gate.outputs.reason }}"
 
       - name: Setup Node
+        if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       - name: Generate SVG
+        if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
         env:
           GITHUB_USERNAME: ${{ vars.PROFILE_USERNAME }}
-          TARGET_REPO: ${{ vars.TARGET_REPO }}
+          TARGET_REPO: ${{ github.event.client_payload.target_repo || vars.TARGET_REPO }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_PAT: ${{ secrets.GH_PAT }}
-        run: node scripts/profile-graph/generate.mjs
+        run: node tools/workout_cubes_plugin/scripts/profile-graph/generate.mjs
 
       - name: Commit and push if changed
+        if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
         run: |
           git add assets/github-contribution-purple.svg
 

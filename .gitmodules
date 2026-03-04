@@ -1,0 +1,3 @@
+[submodule "tools/workout_cubes_plugin"]
+	path = tools/workout_cubes_plugin
+	url = https://github.com/StefanNa/workout_cubes_plugin.git
