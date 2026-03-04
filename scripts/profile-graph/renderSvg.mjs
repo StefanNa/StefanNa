@@ -48,9 +48,50 @@ function dayColor(day, theme, maxGreen, maxPurple) {
   return theme.greenRamp[idx];
 }
 
-function monthColumnIndex(monthFirstDay, weekFirstDays) {
-  const index = weekFirstDays.findIndex((firstDay) => firstDay === monthFirstDay);
-  return Math.max(index, 0);
+function monthKey(dateString) {
+  if (typeof dateString !== 'string' || dateString.length < 7) {
+    return '';
+  }
+  return dateString.slice(0, 7);
+}
+
+function buildMonthLabels(months, weeks) {
+  const visibleColumnByMonth = new Map();
+
+  for (let col = 0; col < weeks.length; col += 1) {
+    const week = weeks[col];
+    for (const day of week.contributionDays || []) {
+      const key = monthKey(day.date);
+      if (key && !visibleColumnByMonth.has(key)) {
+        visibleColumnByMonth.set(key, col);
+      }
+    }
+  }
+
+  const labels = [];
+  let lastX = Number.NEGATIVE_INFINITY;
+  const minGap = CELL_SIZE + CELL_GAP + 2;
+
+  for (const month of months || []) {
+    const key = monthKey(month.firstDay);
+    const column = visibleColumnByMonth.get(key);
+    if (column === undefined) {
+      continue;
+    }
+
+    const x = GRID_LEFT + WEEKDAY_LABEL_WIDTH + column * (CELL_SIZE + CELL_GAP);
+    if (x - lastX < minGap) {
+      continue;
+    }
+
+    labels.push({
+      text: month.name.slice(0, 3),
+      x,
+    });
+    lastX = x;
+  }
+
+  return labels;
 }
 
 export function renderContributionSvg(data, options = {}) {
@@ -63,15 +104,7 @@ export function renderContributionSvg(data, options = {}) {
   const svgWidth = GRID_LEFT + WEEKDAY_LABEL_WIDTH + gridWidth + RIGHT_PADDING;
   const svgHeight = GRID_TOP + gridHeight + BOTTOM_PADDING;
 
-  const weekFirstDays = weeks.map((week) => week.firstDay);
-
-  const monthLabels = (data.months || []).map((month) => {
-    const column = monthColumnIndex(month.firstDay, weekFirstDays);
-    return {
-      text: month.name.slice(0, 3),
-      x: GRID_LEFT + WEEKDAY_LABEL_WIDTH + column * (CELL_SIZE + CELL_GAP),
-    };
-  });
+  const monthLabels = buildMonthLabels(data.months, weeks);
 
   const weekdayLabels = [
     { text: 'Mon', row: 1 },
