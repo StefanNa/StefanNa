@@ -30,13 +30,14 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          if git diff --quiet -- assets/github-contribution-purple.svg; then
+          git add assets/github-contribution-purple.svg
+
+          if git diff --cached --quiet; then
             echo "No SVG changes to commit"
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/github-contribution-purple.svg
           git commit -m "chore(profile): update purple contribution graph"
           git push
