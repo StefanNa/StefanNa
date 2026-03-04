@@ -1,0 +1,13 @@
+{
+  "name": "github-purple-contribution-graph",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Generate a GitHub-style contribution SVG that highlights target-repo commits in neon purple",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/profile-graph/generate.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
