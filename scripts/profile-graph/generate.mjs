@@ -27,6 +27,8 @@ async function readIfExists(filePath) {
 async function main() {
   const username = process.env.GITHUB_USERNAME;
   const targetRepo = process.env.TARGET_REPO;
+  const targetRepoLabel = process.env.TARGET_REPO_LABEL || targetRepo?.split('/').at(-1) || 'target repo';
+  const anyRepoLabel = process.env.ANY_REPO_LABEL || 'Other repos';
   const token = resolveToken();
 
   const rootDir = process.cwd();
@@ -39,7 +41,10 @@ async function main() {
       token,
     });
 
-    const svg = renderContributionSvg(data);
+    const svg = renderContributionSvg(data, {
+      targetRepoLabel,
+      anyRepoLabel,
+    });
     await ensureDir(outputPath);
 
     const oldSvg = await readIfExists(outputPath);
@@ -55,6 +60,8 @@ async function main() {
     if (!data.meta.isTargetRepoVisibleInContributionData) {
       console.warn('Target repo was not visible in contribution data for this window.');
     }
+
+    console.log(`Legend labels: green="${anyRepoLabel}", purple="${targetRepoLabel}"`);
   } catch (error) {
     console.error('Failed to generate contribution SVG.');
     console.error(error?.stack || error?.message || String(error));

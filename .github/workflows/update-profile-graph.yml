@@ -66,6 +66,8 @@ jobs:
         env:
           GITHUB_USERNAME: ${{ vars.PROFILE_USERNAME }}
           TARGET_REPO: ${{ github.event.client_payload.target_repo || vars.TARGET_REPO }}
+          TARGET_REPO_LABEL: ${{ vars.TARGET_REPO_LABEL }}
+          ANY_REPO_LABEL: ${{ vars.ANY_REPO_LABEL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_PAT: ${{ secrets.GH_PAT }}
         run: node tools/workout_cubes_plugin/scripts/profile-graph/generate.mjs
@@ -77,8 +79,12 @@ jobs:
           svg_path="assets/github-contribution-purple.svg"
           echo "SVG path: ${svg_path}"
           echo "SVG sha256: $(sha256sum "${svg_path}" | awk '{print $1}')"
+          echo "Legend labels: green='${ANY_REPO_LABEL:-Other repos}' purple='${TARGET_REPO_LABEL:-auto}'"
           echo "First 20 month/axis text lines:"
           grep -nE '^[[:space:]]*<text x="[0-9]+"' "${svg_path}" | head -n 20 || true
+        env:
+          TARGET_REPO_LABEL: ${{ vars.TARGET_REPO_LABEL }}
+          ANY_REPO_LABEL: ${{ vars.ANY_REPO_LABEL }}
 
       - name: Commit and push if changed
         if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}

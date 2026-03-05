@@ -10,7 +10,9 @@ const DEFAULT_THEME = {
 const CELL_SIZE = 10;
 const CELL_GAP = 3;
 const GRID_LEFT = 40;
-const GRID_TOP = 30;
+const HEADER_Y = 18;
+const MONTH_LABEL_Y = 34;
+const GRID_TOP = 44;
 const WEEKDAY_LABEL_WIDTH = 28;
 const RIGHT_PADDING = 22;
 const BOTTOM_PADDING = 46;
@@ -96,6 +98,8 @@ function buildMonthLabels(months, weeks) {
 
 export function renderContributionSvg(data, options = {}) {
   const theme = { ...DEFAULT_THEME, ...(options.theme || {}) };
+  const targetRepoLabel = options.targetRepoLabel || 'target repo';
+  const anyRepoLabel = options.anyRepoLabel || 'Other repos';
   const weeks = data.weeks || [];
   const weekCount = weeks.length;
 
@@ -128,15 +132,16 @@ export function renderContributionSvg(data, options = {}) {
     }
   }
 
-  const legendX = GRID_LEFT + WEEKDAY_LABEL_WIDTH + gridWidth - 165;
+  const legendRight = GRID_LEFT + WEEKDAY_LABEL_WIDTH + gridWidth;
+  const legendX = Math.max(GRID_LEFT + 2, legendRight - 210);
   const legendY = GRID_TOP + gridHeight + 24;
 
   const greenLegend = theme.greenRamp
-    .map((color, i) => `<rect x="${legendX + 45 + i * 13}" y="${legendY - 8}" width="10" height="10" rx="2" fill="${color}" />`)
+    .map((color, i) => `<rect x="${legendX + 58 + i * 13}" y="${legendY - 8}" width="10" height="10" rx="2" fill="${color}" />`)
     .join('');
 
   const purpleLegend = theme.purpleRamp
-    .map((color, i) => `<rect x="${legendX + 117 + i * 13}" y="${legendY - 8}" width="10" height="10" rx="2" fill="${color}" />`)
+    .map((color, i) => `<rect x="${legendX + 158 + i * 13}" y="${legendY - 8}" width="10" height="10" rx="2" fill="${color}" />`)
     .join('');
 
   const header = `${data.meta?.username || 'user'} · ${data.meta?.targetRepo || 'owner/repo'}`;
@@ -144,14 +149,14 @@ export function renderContributionSvg(data, options = {}) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-labelledby="title desc">
   <title id="title">Workout contribution graph</title>
-  <desc id="desc">GitHub-style contribution calendar with neon purple cells for target repository commit days.</desc>
+  <desc id="desc">GitHub-style contribution calendar. Green cells are activity in other repositories, purple cells highlight ${escapeXml(targetRepoLabel)}.</desc>
   <rect width="100%" height="100%" fill="${theme.background}" rx="8" />
-  <text x="16" y="18" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="${theme.text}">${escapeXml(header)}</text>
+  <text x="16" y="${HEADER_Y}" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="${theme.text}">${escapeXml(header)}</text>
 
   ${monthLabels
     .map(
       (label) =>
-        `<text x="${label.x}" y="20" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="${theme.subtleText}">${escapeXml(label.text)}</text>`
+        `<text x="${label.x}" y="${MONTH_LABEL_Y}" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="${theme.subtleText}">${escapeXml(label.text)}</text>`
     )
     .join('\n  ')}
 
@@ -164,9 +169,9 @@ export function renderContributionSvg(data, options = {}) {
 
   ${cells.join('\n  ')}
 
-  <text x="${legendX}" y="${legendY}" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="${theme.subtleText}">Less</text>
+  <text x="${legendX}" y="${legendY}" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="${theme.subtleText}">${escapeXml(anyRepoLabel)}</text>
   ${greenLegend}
   ${purpleLegend}
-  <text x="${legendX + 171}" y="${legendY}" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="${theme.subtleText}">More</text>
+  <text x="${legendX + 114}" y="${legendY}" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="${theme.subtleText}">${escapeXml(targetRepoLabel)}</text>
 </svg>`;
 }
