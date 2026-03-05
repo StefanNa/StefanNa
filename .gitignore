@@ -1,2 +1,4 @@
 .DS_Store
 .env
+PLAN.md
+node_modules/

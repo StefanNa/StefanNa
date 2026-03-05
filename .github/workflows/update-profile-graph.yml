@@ -61,6 +61,10 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install npm dependencies
+        if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
+        run: npm ci
+
       - name: Generate SVG
         if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
         env:
@@ -71,6 +75,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_PAT: ${{ secrets.GH_PAT }}
         run: node tools/workout_cubes_plugin/scripts/profile-graph/generate.mjs
+
+      - name: Generate animated GIF
+        if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
+        env:
+          GITHUB_USERNAME: ${{ vars.PROFILE_USERNAME }}
+          TARGET_REPO: ${{ github.event.client_payload.target_repo || vars.TARGET_REPO }}
+          TARGET_REPO_LABEL: ${{ vars.TARGET_REPO_LABEL }}
+          ANY_REPO_LABEL: ${{ vars.ANY_REPO_LABEL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: node scripts/profile-graph/generateGif.mjs
 
       - name: Debug SVG proof
         if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
@@ -90,7 +105,7 @@ jobs:
         if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
         run: |
           set -euo pipefail
-          git add assets/github-contribution-purple.svg
+          git add assets/github-contribution-purple.svg assets/github-contribution-purple.gif
 
           if git diff --cached --quiet; then
             echo "No SVG changes to commit"
