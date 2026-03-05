@@ -6,5 +6,5 @@
 </picture>
 
 Green = activity in every other repository  
-Neon purple = activity in Sportacus  
+Neon purple = activity in Sportacuss
 Highlighted repo: [MySportacus](https://github.com/StefanNa/MySportacus)
