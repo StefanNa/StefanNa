@@ -8,6 +8,10 @@ on:
     types:
       - workout-graph-update
 
+concurrency:
+  group: profile-graph-update
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -66,9 +70,20 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: node tools/workout_cubes_plugin/scripts/profile-graph/generate.mjs
 
+      - name: Debug SVG proof
+        if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
+        run: |
+          set -euo pipefail
+          svg_path="assets/github-contribution-purple.svg"
+          echo "SVG path: ${svg_path}"
+          echo "SVG sha256: $(sha256sum "${svg_path}" | awk '{print $1}')"
+          echo "First 20 month/axis text lines:"
+          grep -nE '^[[:space:]]*<text x="[0-9]+"' "${svg_path}" | head -n 20 || true
+
       - name: Commit and push if changed
         if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
         run: |
+          set -euo pipefail
           git add assets/github-contribution-purple.svg
 
           if git diff --cached --quiet; then
@@ -79,4 +94,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "chore(profile): update purple contribution graph"
-          git push
+          branch="${GITHUB_REF_NAME:-master}"
+          git pull --rebase origin "${branch}"
+          git push origin "HEAD:${branch}"
+          echo "Pushed commit: $(git rev-parse --short HEAD) to ${branch}"
