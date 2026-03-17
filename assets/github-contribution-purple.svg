@@ -387,7 +387,7 @@
   <rect x="731" y="122" width="10" height="10" rx="2" ry="2" fill="#161b22"><title>2026-03-14: 0 total, 0 target-repo</title></rect>
   <rect x="744" y="44" width="10" height="10" rx="2" ry="2" fill="#161b22"><title>2026-03-15: 0 total, 0 target-repo</title></rect>
   <rect x="744" y="57" width="10" height="10" rx="2" ry="2" fill="#161b22"><title>2026-03-16: 0 total, 0 target-repo</title></rect>
-  <rect x="744" y="70" width="10" height="10" rx="2" ry="2" fill="#161b22"><title>2026-03-17: 0 total, 0 target-repo</title></rect>
+  <rect x="744" y="70" width="10" height="10" rx="2" ry="2" fill="#7b1fa2"><title>2026-03-17: 5 total, 5 target-repo</title></rect>
 
   <text x="544" y="156" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e">All other repos</text>
   <rect x="602" y="148" width="10" height="10" rx="2" fill="#0e4429" /><rect x="615" y="148" width="10" height="10" rx="2" fill="#006d32" /><rect x="628" y="148" width="10" height="10" rx="2" fill="#26a641" /><rect x="641" y="148" width="10" height="10" rx="2" fill="#39d353" />
