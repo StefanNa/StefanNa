@@ -423,7 +423,7 @@
   <rect x="734" y="185" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2026-04-01: 0 total, 0 target-repo</title></rect>
   <rect x="734" y="198" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2026-04-02: 0 total, 0 target-repo</title></rect>
   <rect x="734" y="211" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2026-04-03: 0 total, 0 target-repo</title></rect>
-  <rect x="733" y="223" width="12" height="12" rx="4" fill="#8c48e5" opacity="0.24" filter="url(#targetGlow)" /><rect x="734" y="224" width="10" height="10" rx="3" ry="3" fill="#8c48e5" stroke="rgba(255,255,255,0.08)" stroke-width="0.6"><title>2026-04-04: 13 total, 5 target-repo</title></rect>
+  <rect x="733" y="223" width="12" height="12" rx="4" fill="#8c48e5" opacity="0.24" filter="url(#targetGlow)" /><rect x="734" y="224" width="10" height="10" rx="3" ry="3" fill="#8c48e5" stroke="rgba(255,255,255,0.08)" stroke-width="0.6"><title>2026-04-04: 15 total, 5 target-repo</title></rect>
 
   <text x="508" y="258" font-family="Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="600" fill="#99abc4">Building</text>
   <rect x="565" y="250" width="10" height="10" rx="3" fill="#203c39" stroke="rgba(255,255,255,0.05)" /><rect x="578" y="250" width="10" height="10" rx="3" fill="#245652" stroke="rgba(255,255,255,0.05)" /><rect x="591" y="250" width="10" height="10" rx="3" fill="#2f7269" stroke="rgba(255,255,255,0.05)" /><rect x="604" y="250" width="10" height="10" rx="3" fill="#4ba28f" stroke="rgba(255,255,255,0.05)" />
