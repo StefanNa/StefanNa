@@ -5,6 +5,6 @@
   <img alt="Workout contribution graph" src="https://raw.githubusercontent.com/StefanNa/StefanNa/master/assets/github-contribution-purple.svg">
 </picture>
 
-Green = activity in every other repository  
-Neon purple = activity in Sportacuss
+Green = GitHub contribution activity in every other repository  
+Purple = target-repo commit activity in Sportacus  
 Highlighted repo: [MySportacus](https://github.com/StefanNa/MySportacus)

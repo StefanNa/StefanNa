@@ -8,10 +8,6 @@ on:
     types:
       - workout-graph-update
 
-concurrency:
-  group: profile-graph-update
-  cancel-in-progress: false
-
 permissions:
   contents: write
 
@@ -61,10 +57,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install npm dependencies
-        if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
-        run: npm ci
-
       - name: Generate SVG
         if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
         env:
@@ -76,36 +68,23 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: node tools/workout_cubes_plugin/scripts/profile-graph/generate.mjs
 
-      - name: Generate animated GIF
-        if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
-        env:
-          GITHUB_USERNAME: ${{ vars.PROFILE_USERNAME }}
-          TARGET_REPO: ${{ github.event.client_payload.target_repo || vars.TARGET_REPO }}
-          TARGET_REPO_LABEL: ${{ vars.TARGET_REPO_LABEL }}
-          ANY_REPO_LABEL: ${{ vars.ANY_REPO_LABEL }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_PAT: ${{ secrets.GH_PAT }}
-        run: node scripts/profile-graph/generateGif.mjs
-
       - name: Debug SVG proof
         if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
+        env:
+          TARGET_REPO_LABEL: ${{ vars.TARGET_REPO_LABEL }}
+          ANY_REPO_LABEL: ${{ vars.ANY_REPO_LABEL }}
         run: |
           set -euo pipefail
           svg_path="assets/github-contribution-purple.svg"
           echo "SVG path: ${svg_path}"
           echo "SVG sha256: $(sha256sum "${svg_path}" | awk '{print $1}')"
           echo "Legend labels: green='${ANY_REPO_LABEL:-Other repos}' purple='${TARGET_REPO_LABEL:-auto}'"
-          echo "First 20 month/axis text lines:"
-          grep -nE '^[[:space:]]*<text x="[0-9]+"' "${svg_path}" | head -n 20 || true
-        env:
-          TARGET_REPO_LABEL: ${{ vars.TARGET_REPO_LABEL }}
-          ANY_REPO_LABEL: ${{ vars.ANY_REPO_LABEL }}
 
       - name: Commit and push if changed
         if: ${{ steps.schedule_gate.outputs.should_run == 'true' }}
         run: |
           set -euo pipefail
-          git add assets/github-contribution-purple.svg assets/github-contribution-purple.gif
+          git add assets/github-contribution-purple.svg
 
           if git diff --cached --quiet; then
             echo "No SVG changes to commit"
@@ -118,4 +97,3 @@ jobs:
           branch="${GITHUB_REF_NAME:-master}"
           git pull --rebase origin "${branch}"
           git push origin "HEAD:${branch}"
-          echo "Pushed commit: $(git rev-parse --short HEAD) to ${branch}"
