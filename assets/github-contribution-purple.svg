@@ -424,7 +424,7 @@
   <rect x="734" y="185" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2026-04-08: 0 total, 0 target-repo</title></rect>
   <rect x="734" y="198" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2026-04-09: 0 total, 0 target-repo</title></rect>
   <rect x="734" y="211" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2026-04-10: 0 total, 0 target-repo</title></rect>
-  <rect x="734" y="224" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2026-04-11: 0 total, 0 target-repo</title></rect>
+  <rect x="734" y="224" width="10" height="10" rx="3" ry="3" fill="#203c39" stroke="rgba(255,255,255,0.04)" stroke-width="0.6"><title>2026-04-11: 1 total, 0 target-repo</title></rect>
 
   <text x="508" y="258" font-family="Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="600" fill="#99abc4">Building</text>
   <rect x="565" y="250" width="10" height="10" rx="3" fill="#203c39" stroke="rgba(255,255,255,0.05)" /><rect x="578" y="250" width="10" height="10" rx="3" fill="#245652" stroke="rgba(255,255,255,0.05)" /><rect x="591" y="250" width="10" height="10" rx="3" fill="#2f7269" stroke="rgba(255,255,255,0.05)" /><rect x="604" y="250" width="10" height="10" rx="3" fill="#4ba28f" stroke="rgba(255,255,255,0.05)" />
