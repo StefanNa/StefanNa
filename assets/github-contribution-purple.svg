@@ -27,7 +27,7 @@
 
   <text x="34" y="38" font-family="Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700" fill="#d06cff" letter-spacing="1.2">TARGET REPO OVERLAY</text>
   <text x="34" y="56" font-family="Avenir Next Condensed, Trebuchet MS, Segoe UI, sans-serif" font-size="24" font-weight="700" fill="#e8eef8">Sportacus Activity</text>
-  <text x="34" y="72" font-family="Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10" fill="#99abc4">StefanNa · StefanNa/MySportacus · 2025-04-17 to 2026-04-16</text>
+  <text x="34" y="72" font-family="Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10" fill="#99abc4">StefanNa · StefanNa/MySportacus · 2025-04-18 to 2026-04-17</text>
 
   
   <rect x="18" y="86" width="237" height="40" rx="12" fill="#0f1a2b" stroke="#24344b" />
@@ -60,9 +60,8 @@
   <text x="30" y="193" font-family="Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" fill="#99abc4">Wed</text>
   <text x="30" y="219" font-family="Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" fill="#99abc4">Fri</text>
 
-  <rect x="58" y="146" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2025-04-17: 0 total, 0 target-repo</title></rect>
-  <rect x="58" y="159" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2025-04-18: 0 total, 0 target-repo</title></rect>
-  <rect x="58" y="172" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2025-04-19: 0 total, 0 target-repo</title></rect>
+  <rect x="58" y="146" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2025-04-18: 0 total, 0 target-repo</title></rect>
+  <rect x="58" y="159" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2025-04-19: 0 total, 0 target-repo</title></rect>
   <rect x="71" y="146" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2025-04-20: 0 total, 0 target-repo</title></rect>
   <rect x="71" y="159" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2025-04-21: 0 total, 0 target-repo</title></rect>
   <rect x="71" y="172" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2025-04-22: 0 total, 0 target-repo</title></rect>
@@ -425,6 +424,7 @@
   <rect x="734" y="172" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2026-04-14: 0 total, 0 target-repo</title></rect>
   <rect x="734" y="185" width="10" height="10" rx="3" ry="3" fill="#203c39" stroke="rgba(255,255,255,0.04)" stroke-width="0.6"><title>2026-04-15: 3 total, 0 target-repo</title></rect>
   <rect x="734" y="198" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2026-04-16: 0 total, 0 target-repo</title></rect>
+  <rect x="734" y="211" width="10" height="10" rx="3" ry="3" fill="#132033" stroke="#1b2a42" stroke-width="0.6"><title>2026-04-17: 0 total, 0 target-repo</title></rect>
 
   <text x="508" y="258" font-family="Avenir Next, Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="600" fill="#99abc4">Building</text>
   <rect x="565" y="250" width="10" height="10" rx="3" fill="#203c39" stroke="rgba(255,255,255,0.05)" /><rect x="578" y="250" width="10" height="10" rx="3" fill="#245652" stroke="rgba(255,255,255,0.05)" /><rect x="591" y="250" width="10" height="10" rx="3" fill="#2f7269" stroke="rgba(255,255,255,0.05)" /><rect x="604" y="250" width="10" height="10" rx="3" fill="#4ba28f" stroke="rgba(255,255,255,0.05)" />
